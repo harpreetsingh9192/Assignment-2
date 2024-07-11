@@ -1,0 +1,132 @@
+body {
+    background-image: url(bkimg2.jpg);
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: 7px;
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+.container {
+    max-width: 600px;
+    border-radius: 15px;
+    margin: 20px;
+    margin-left: 100px;
+    padding: 20px;
+    background-color: gray;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#name {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 40px;
+}
+
+.input-group input[type="text"],
+.input-group input[type="tel"],
+.input-group input[type="email"],
+.input-group input[type="password"],
+.input-group input[type="date"] {
+    width: 97%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.input-group input[type="text"]{
+    width: 112%;
+}
+
+.gender-options {
+    display: flex;
+    flex-direction: column;
+}
+
+.gender-options label {
+    margin-right: 10px;
+}
+
+.gender-options div {
+    display: flex;
+    flex-direction: row;
+}
+
+.button {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.back-btn,
+.submit-btn {
+    padding: 10px 20px;
+    background-color: #f44336;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.clrbutton{
+ float: right;
+}
+
+.clrbutton:hover {
+    cursor: pointer;
+}
+
+.submit-btn {
+    background-color: #5cb85c;
+}
+
+.submit-btn:hover {
+    background-color: #4cae4c;
+}
+
+.back-btn:hover {
+    background-color: #d32f2f;
+}
+
+.alert{
+    display: flex;
+    justify-content: space-between;
+    background-color: red;
+    color: white;
+    font-size: 18px;
+    padding: 12px 12px;
+}
+
+.alert a{
+    color: white;
+}
+
+.alrt_btn{
+    background-color: red;
+    color: white;
+    border: none;
+    font-size: 16px;
+    margin-right: 20px;
+    cursor: pointer;
+}

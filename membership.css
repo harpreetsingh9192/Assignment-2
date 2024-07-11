@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(bkimg.jpg);
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(7px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 300px;
+    font-size: 16px;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.1);
+}
+
+
+.header {
+    background-color: #7c53a5;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.features {
+    padding: 20px;
+    background-color: white;
+    list-style: none;
+}
+
+.features li {
+    margin: 10px 0;
+}
+
+.features li:before {
+    content: 'ℹ️';
+    margin-right: 5px;
+}
+
+.footer {
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.select-button {
+    background-color: #7c53a5;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    border-radius: 4px;
+}
+
+#rbutton {
+    margin-top: 5.7em;
+}
+
+.select-button:hover {
+    cursor: pointer;
+    background-color: #6c757d;
+    color: white;
+}

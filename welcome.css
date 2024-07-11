@@ -1,0 +1,67 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.logout{
+    display: flex;
+    justify-content: right;
+}
+
+.logout a, button{
+    text-decoration: none;
+    border: 3px solid black;
+    border-radius: 7px;
+    background-color: red;
+    padding: 7px 15px;
+    color: white;
+    margin: 10px;
+    font-size: 18px;
+}
+
+.logout a:hover{
+    cursor: pointer;
+    background-color: rgba(255, 0, 0, 0.49);
+}
+
+.container {
+    max-width: 350px;
+    border-radius: 15px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-group{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.input-group input[type="email"],
+.input-group input[type="password"] {
+    width: 95%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+
+.btn{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.btn button{
+    background-color: lightgreen;
+    color: black;
+}
+.btn button:hover{
+    background-color: rgba(172, 255, 47, 0.601);
+}
+
