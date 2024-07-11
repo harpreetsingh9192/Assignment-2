@@ -1,61 +1,59 @@
 <?php
+function showAlert($message) {
+    echo '<div class="alert" id="alert">
+    ' . $message . '
+    <button class="alrt_btn" id="alrt_btn" onclick="hide()">X</button>
+    </div>';
+}
+
 if (!isset($_GET['mship'])) {
     header("location: ./membership.php");
-} else {
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        require './connection.php';
-        $membership = $_GET['mship'];
-        $first_name = trim($_POST["first_name"]);
-        $last_name = trim($_POST["last_name"]);
-        $phn_no = $_POST["phn_no"];
-        $email = trim($_POST["email"]);
-        $password = $_POST["password"];
-        $confirm_password = $_POST["confirm_password"];
-        $gender = $_POST["gender"];
-        $dob = $_POST["dob"];
-        $hashpass = password_hash($password, PASSWORD_DEFAULT);
-        if (
-            !filter_var($first_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/"))) ||
-            !filter_var($last_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))
-        ) {
-            echo '<div class="alert" id="alert">
-                 Please enter a valid name
-                <button class="alrt_btn" id="alrt_btn" onclick="hide()">X</button>
-                </div>';
+    exit();
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    require './connection.php';
+
+    $membership = $_GET['mship'];
+    $first_name = trim($_POST["first_name"]);
+    $last_name = trim($_POST["last_name"]);
+    $phn_no = $_POST["phn_no"];
+    $email = trim($_POST["email"]);
+    $password = $_POST["password"];
+    $confirm_password = $_POST["confirm_password"];
+    $gender = $_POST["gender"];
+    $dob = $_POST["dob"];
+    $hashpass = password_hash($password, PASSWORD_DEFAULT);
+
+    if (!preg_match("/^[a-zA-Z\s]+$/", $first_name) || !preg_match("/^[a-zA-Z\s]+$/", $last_name)) {
+        showAlert('Please enter a valid name');
+    } elseif ($password !== $confirm_password) {
+        showAlert('Password mismatch! Please enter same password');
+    } else {
+        $existsql = "SELECT * FROM `gym` WHERE email = ? OR `p.no` = ?";
+        $stmt = $conn->prepare($existsql);
+        $stmt->bind_param("ss", $email, $phn_no);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            showAlert('<span>User already exists.  <a href="./login.php">Login</a></span>');
         } else {
-            if (!$password == $confirm_password) {
-                echo '<div class="alert" id="alert">
-                 <strong>Password mismatch!</strong>  Please enter same password
-                <button class="alrt_btn" id="alrt_btn" onclick="hide()">X</button>
-                </div>';
-            } else {
-                $existsql = "SELECT * FROM `gym` WHERE email = ? OR `p.no` = ?";
-                $stmt = $conn->prepare($existsql);
-                $stmt->bind_param("ss", $email, $phn_no);
-                $stmt->execute();
-                $result = $stmt->get_result();
-                $exist = $result->num_rows;
-                if ($exist > 0) {
-                    echo '<div class="alert" id="alert">
-            <span>User alredy exist.  <a href="./login.php">Login</a></span>
-            <button class="alrt_btn" id="alrt_btn" onclick="hide()">X</button>
-             </div>';
-                } else {
-                    $sql = "INSERT INTO `gym` (`membership`, `first_name`, `last_name`, `p.no`, `email`, `password`, `gender`, `dob`) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-                    $stmt = $conn->prepare($sql);
-                    $stmt->bind_param("ssssssss", $membership, $first_name, $last_name, $phn_no, $email, $hashpass, $gender, $dob);
-                    $result = $stmt->execute();
-                    if ($result) {
-                        header('location: ./login.php');
-                        exit();
-                    };
-                }
+            $sql = "INSERT INTO `gym` (`membership`, `first_name`, `last_name`, `p.no`, `email`, `password`, `gender`, `dob`) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ssssssss", $membership, $first_name, $last_name, $phn_no, $email, $hashpass, $gender, $dob);
+            $result = $stmt->execute();
+
+            if ($result) {
+                header('location: ./login.php');
+                exit();
             }
         }
     }
 }
 ?>
+
 
 
 

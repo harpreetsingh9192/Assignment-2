@@ -1,8 +1,14 @@
 <?php
-$login = true;
-$invail_user = true;
+function showAlert($message) {
+    echo '<div class="alert" id="alert">
+    ' . $message . '
+    <button class="alrt_btn" id="alrt_btn" onclick="hide()">X</button>
+    </div>';
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require './connection.php';
+
     $username = $_POST["username"];
     $log_pass = $_POST["log_pass"];
     $logsql = "SELECT * FROM `gym` WHERE email = ? OR `p.no` = ?";
@@ -10,33 +16,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ss", $username, $username);
     $stmt->execute();
     $result = $stmt->get_result();
-    $aff_rows = $result->num_rows;
-    if ($aff_rows == 1) {
+
+    if ($result->num_rows == 1) {
         while ($row = $result->fetch_assoc()) {
             if (password_verify($log_pass, $row['password'])) {
                 session_start();
                 $_SESSION['username'] = $username;
                 header("location: ./welcome.php");
                 exit();
-             }
-             else{
-                $login = false;
-             }
-         } 
+            } else {
+                showAlert('<strong>Wrong Password</strong>');
+            }
+        } 
+    } else {
+        showAlert('<strong>Invalid Username</strong>');
     }
-    else {
-        $invail_user = false;
-    }
-}
-
-
-if (!$invail_user || !$login) {
-    echo '<div class="alert" id="alert">
-            <strong>Wrong Username or Password</strong>
-             <button class="alrt_btn" id="alrt_btn" onclick="hide()">X</button>
-    	</div>';
 }
 ?>
+
 
 
 <!DOCTYPE html>
